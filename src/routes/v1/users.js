@@ -9,7 +9,6 @@ const {
   registrationSchema,
   loginSchema,
   changePasswordSchema,
-  wineSchema,
 } = require("../../middleware/schemas");
 const validation = require("../../middleware/validation");
 
