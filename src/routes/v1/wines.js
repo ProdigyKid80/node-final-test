@@ -13,10 +13,17 @@ const status500 = "An issue occured. Please, try again later.";
 router.get("/", isLoggedIn, async (req, res) => {
   try {
     const con = await mysql.createConnection(mysqlConfig);
-    const [data] = await con.execute(`
+    let [data] = await con.execute(`
       SELECT * FROM wines
     `);
     await con.end();
+
+    if (req.body.from && req.body.to) {
+      const start = req.body.from - 1;
+      const end = req.body.to;
+
+      data = data.slice(start, end);
+    }
 
     return res.send(data);
   } catch (err) {
