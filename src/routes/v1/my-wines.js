@@ -63,8 +63,11 @@ router.post("/", isLoggedIn, validation(collectionSchema), async (req, res) => {
 
       // if user's collection was found - update it with a given amount
     } else {
-      // if collection exists, but quantity is 0 and user tries to lower it - return error
-      if (data[0].quantity === 0 && req.body.amount < 0) {
+      // if collection exists, but user tries to subtract more than the quantity - return error
+      if (
+        (data[0].quantity === 0 && req.body.amount < 0) ||
+        data[0].quantity + req.body.amount < 0
+      ) {
         return res.status(400).send({ err: "Not enough wine in collection" });
       }
 
