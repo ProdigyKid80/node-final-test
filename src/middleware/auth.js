@@ -8,7 +8,6 @@ module.exports = {
       req.user = jwt.verify(token, jwtSecret);
       return next();
     } catch (err) {
-      console.log(err);
       return res.status(400).send({ err: "User is not logged in" });
     }
   },

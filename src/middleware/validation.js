@@ -3,7 +3,6 @@ const validation = (schema) => async (req, res, next) => {
     req.body = await schema.validateAsync(req.body);
     return next();
   } catch (err) {
-    console.log(err);
     return res.status(400).send({ err: "Incorrect data sent" });
   }
 };
